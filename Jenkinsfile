@@ -47,6 +47,7 @@ pipeline {
                 success {
                     junit '*/target/surefire-reports/TEST-.xml'
                     archiveArtifacts 'Day1-BankApp/target/*.jar'
+			junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
                 }
             }
         }
