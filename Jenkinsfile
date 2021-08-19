@@ -4,8 +4,6 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "maven3"
-    
-	    
     }
 
     stages {
@@ -38,16 +36,15 @@ pipeline {
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 // To run Maven on a Windows agent, use
-                 bat "mvn -f Day1-BankApp\\pom.xml -Dmaven.test.failure.ignore=true clean package"
+                 bat "mvn -f pom.xml -Dmaven.test.failure.ignore=true clean package"
             }
 
             post {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit '*/target/surefire-reports/TEST-.xml'
-                    archiveArtifacts 'Day1-BankApp/target/*.jar'
-			junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
